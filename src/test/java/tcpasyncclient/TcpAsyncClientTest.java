@@ -12,7 +12,7 @@ public class TcpAsyncClientTest {
 
     @Test
     public void testSendReceive() throws Exception {
-        TcpEchoAsyncServer tcpEchoAsyncServer = new TcpEchoAsyncServer();
+        TcpEchoAsyncServer tcpEchoAsyncServer = new TcpEchoAsyncServer(3000);
         InetSocketAddress address = tcpEchoAsyncServer.getLocalAddress();
 
         final AtomicReference<String> resultString = new AtomicReference<>();

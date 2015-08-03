@@ -11,7 +11,7 @@ import java.nio.channels.CompletionHandler;
 public class TcpEchoAsyncServer {
     AsynchronousServerSocketChannel serverChannel;
 
-    public TcpEchoAsyncServer() throws IOException {
+    public TcpEchoAsyncServer(int requestBufferSize) throws IOException {
         InetSocketAddress hostAddress = new InetSocketAddress(0);
         serverChannel = AsynchronousServerSocketChannel.open().bind(hostAddress);
 
@@ -19,7 +19,7 @@ public class TcpEchoAsyncServer {
         serverChannel.accept(null, new CompletionHandler<AsynchronousSocketChannel, Void>() {
             public void completed(final AsynchronousSocketChannel channel, Void v) {
                 // Read request
-                ByteBuffer readBuffer = ByteBuffer.allocate(3000);
+                ByteBuffer readBuffer = ByteBuffer.allocate(requestBufferSize);
                 channel.read(readBuffer, null, new CompletionHandler<Integer, Void>() {
                     @Override
                     public void completed(Integer length, Void attachment) {
